@@ -1,0 +1,5 @@
+{
+  "name": "chrome-extension-vite",
+  "description": "Sample Chrome extension using Vite",
+  "repository": "https://github.com/jordnkr/chrome-extension-vite.git"
+}
