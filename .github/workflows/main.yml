@@ -25,11 +25,10 @@ jobs:
 
       - name: Archive build artifacts
         run: |
-          mkdir -p artifacts
-          zip -r artifacts/dist.zip dist/
+          zip -r chrome-extension-vite.zip dist/
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: dist
-          path: artifacts/dist.zip
+          name: chrome-extension-vite
+          path: chrome-extension-vite.zip
