@@ -1,5 +1,17 @@
 {
   "name": "chrome-extension-vite",
   "description": "Sample Chrome extension using Vite",
-  "repository": "https://github.com/jordnkr/chrome-extension-vite.git"
+  "repository": "https://github.com/jordnkr/chrome-extension-vite.git",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:watch": "vite build --watch",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "color": "^4.2.3"
+  },
+  "devDependencies": {
+    "vite": "^4.2.1"
+  }
 }

@@ -8,7 +8,7 @@
   },
   "permissions": ["storage", "activeTab", "scripting"],
   "host_permissions": ["https://*/*", "http://*/*"],
-  "devtools_page": "panel.html",
+  "devtools_page": "index.html",
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
