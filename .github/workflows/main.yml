@@ -23,12 +23,19 @@ jobs:
       - name: Run build
         run: yarn build
 
+      - name: Get version from manifest.json
+        id: version
+        run: |
+          VERSION=$(node -e "console.log(require('./public/manifest.json').version)")
+          echo "::set-output name=version::$VERSION"
+
+
       - name: Archive build artifacts
         run: |
-          zip -r chrome-extension-vite.zip dist/
+          cd dist && zip -r ../chrome-extension-vite.zip ./
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: chrome-extension-vite
-          path: chrome-extension-vite.zip
+          name: chrome-extension-${{ steps.version.outputs.version }}
+          path: "chrome-extension-vite.zip"
