@@ -44,7 +44,7 @@ jobs:
           latest_tag_without_v="${latest_tag#v}"
           version_pattern="^[0-9]+\.[0-9]+$"
     
-          if [[ ${env.VERSION} != $latest_tag_without_v ]] && [[ $latest_tag_without_v =~ $version_pattern ]]; then
+          if [[ ${{ 'env.VERSION' != $latest_tag_without_v }} ]] && [[ $latest_tag_without_v =~ $version_pattern ]]; then
             echo "CHANGED=true" >> $GITHUB_ENV
           else
             echo "CHANGED=false" >> $GITHUB_ENV
