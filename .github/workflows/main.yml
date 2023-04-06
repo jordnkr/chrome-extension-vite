@@ -20,22 +20,51 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Run build
-        run: yarn build
-
       - name: Get version from manifest.json
         id: version
         run: |
           VERSION=$(node -e "console.log(require('./public/manifest.json').version)")
           echo "::set-output name=version::$VERSION"
 
+      - name: Get latest tag
+        id: latest_tag
+        run: |
+          git fetch --tags
+          echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
+
+      - name: Check if version has changed
+        id: version_changed
+        run: |
+          if [ "${{ steps.version.outputs.version }}" != "${{ steps.latest_tag.outputs.tag#v }}" ]; then
+            echo "::set-output name=changed::true"
+          else
+            echo "::set-output name=changed::false"
+          fi
 
       - name: Archive build artifacts
+        if: steps.version_changed.outputs.changed == 'true'
         run: |
           cd dist && zip -r ../chrome-extension-vite.zip ./
+          cd .. && mv chrome-extension-vite.zip chrome-extension-vite
 
       - name: Upload build artifacts
+        if: steps.version_changed.outputs.changed == 'true'
         uses: actions/upload-artifact@v2
         with:
-          name: chrome-extension-${{ steps.version.outputs.version }}
-          path: "chrome-extension-vite.zip"
+          name: chrome-extension-vite-${{ steps.version.outputs.version }}
+          path: "chrome-extension-vite"
+
+      - name: Create new release
+        if: steps.version_changed.outputs.changed == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ steps.version.outputs.version }}
+          tag_name: v${{ steps.version.outputs.version }}
+          body: |
+            This is a new release of the Chrome extension.
+          draft: false
+          prerelease: true
+          files: |
+            chrome-extension-vite.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
