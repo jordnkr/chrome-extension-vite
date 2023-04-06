@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    permissions: read-all|write-all
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -41,7 +41,7 @@ jobs:
               per_page: 1,
             });
             const latestRelease = releases[0];
-            core.exportVariable('TAG', latestRelease.tag_name);
+            console.log(`TAG=${latestRelease.tag_name}`);
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check if version has changed
