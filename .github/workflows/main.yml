@@ -35,11 +35,14 @@ jobs:
       - name: Check if version has changed
         id: version_changed
         run: |
-          if [ "${{ steps.version.outputs.version }}" != "${{ steps.latest_tag.outputs.tag#v }}" ]; then
+          latest_tag="${{ steps.latest_tag.outputs.tag }}"
+          latest_tag_without_v="${latest_tag#v}"
+          if [ "${{ steps.version.outputs.version }}" != "$latest_tag_without_v" ]; then
             echo "::set-output name=changed::true"
           else
             echo "::set-output name=changed::false"
           fi
+
 
       - name: Archive build artifacts
         if: steps.version_changed.outputs.changed == 'true'
