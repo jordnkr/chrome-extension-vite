@@ -42,6 +42,7 @@ jobs:
             });
             const latestRelease = releases[0];
             console.log(`TAG=${latestRelease.tag_name}`);
+            core.exportVariable('TAG', latestRelease.tag_name);
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check if version has changed
