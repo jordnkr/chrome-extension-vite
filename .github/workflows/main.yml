@@ -33,8 +33,7 @@ jobs:
       - name: Get latest tag
         id: latest_tag
         run: |
-          git fetch --tags origin main:main
-          git checkout main
+          git fetch --tags
           echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
 
