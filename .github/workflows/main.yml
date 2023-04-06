@@ -33,7 +33,7 @@ jobs:
         id: latest_tag
         run: |
           git fetch --tags
-          echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+          echo "TAG=$(git describe --tags --abbrev=0 --always)" >> $GITHUB_ENV
 
       - name: Check if version has changed
         id: version_changed
