@@ -59,7 +59,7 @@ jobs:
           fi
 
       - name: Archive build artifacts
-        if: ${{ 'env.CHANGED' == 'true' }}
+        if: ${{ env.CHANGED == 'true' }}
         run: |
           cd dist && zip -r ../chrome-extension-vite.zip ./
 
