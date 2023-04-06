@@ -50,14 +50,13 @@ jobs:
         if: ${{ env.CHANGED }} == 'true'
         run: |
           cd dist && zip -r ../chrome-extension-vite.zip ./
-          cd .. && mv chrome-extension-vite.zip chrome-extension-vite
 
       - name: Upload build artifacts
         if: ${{ env.CHANGED }} == 'true'
         uses: actions/upload-artifact@v2
         with:
-          name: chrome-extension-vite-${{ env.VERSION }}
-          path: "chrome-extension-vite"
+          name: chrome-extension-vite
+          path: "chrome-extension-vite.zip"
 
       - name: Create new release
         if: ${{ env.CHANGED }} == 'true'
