@@ -32,7 +32,7 @@ jobs:
           
       - name: Get latest release tag
         id: latest_tag
-        uses: actions/github-script@v6
+        uses: actions/github-script@v4
         with:
           script: |
             const { data: releases } = await github.repos.listReleases({
