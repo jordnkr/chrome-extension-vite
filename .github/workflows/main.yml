@@ -9,6 +9,8 @@ jobs:
   build:
     permissions: write-all
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -43,7 +45,6 @@ jobs:
             const latestRelease = releases[0];
             console.log(`TAG=${latestRelease.tag_name}`);
             core.exportVariable('TAG', latestRelease.tag_name);
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check if version has changed
         id: version_changed
@@ -64,14 +65,14 @@ jobs:
           cd dist && zip -r ../chrome-extension-vite.zip ./
 
       - name: Upload build artifacts
-        if: ${{ 'env.CHANGED' == 'true' }}
+        if: ${{ env.CHANGED == 'true' }}
         uses: actions/upload-artifact@v2
         with:
           name: chrome-extension-vite
           path: "chrome-extension-vite.zip"
 
       - name: Create new release
-        if: ${{ 'env.CHANGED' == 'true' }}
+        if: ${{ env.CHANGED == 'true' }}
         uses: softprops/action-gh-release@v1
         with:
           name: Release ${{ env.VERSION }}
@@ -82,5 +83,3 @@ jobs:
           prerelease: true
           files: |
             chrome-extension-vite.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
