@@ -27,45 +27,44 @@ jobs:
         id: version
         run: |
           VERSION=$(node -e "console.log(require('./public/manifest.json').version)")
-          echo "::set-output name=version::$VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Get latest tag
         id: latest_tag
         run: |
           git fetch --tags
-          echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
+          echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
       - name: Check if version has changed
         id: version_changed
         run: |
-          latest_tag="${{ steps.latest_tag.outputs.tag }}"
+          latest_tag="${{ env.TAG }}"
           latest_tag_without_v="${latest_tag#v}"
-          if [ "${{ steps.version.outputs.version }}" != "$latest_tag_without_v" ]; then
-            echo "::set-output name=changed::true"
+          if [ "${{ env.VERSION }}" != "$latest_tag_without_v" ]; then
+            echo "CHANGED=true" >> $GITHUB_ENV
           else
-            echo "::set-output name=changed::false"
+            echo "CHANGED=false" >> $GITHUB_ENV
           fi
 
-
       - name: Archive build artifacts
-        if: steps.version_changed.outputs.changed == 'true'
+        if: ${{ env.CHANGED }} == 'true'
         run: |
           cd dist && zip -r ../chrome-extension-vite.zip ./
           cd .. && mv chrome-extension-vite.zip chrome-extension-vite
 
       - name: Upload build artifacts
-        if: steps.version_changed.outputs.changed == 'true'
+        if: ${{ env.CHANGED }} == 'true'
         uses: actions/upload-artifact@v2
         with:
-          name: chrome-extension-vite-${{ steps.version.outputs.version }}
+          name: chrome-extension-vite-${{ env.VERSION }}
           path: "chrome-extension-vite"
 
       - name: Create new release
-        if: steps.version_changed.outputs.changed == 'true'
+        if: ${{ env.CHANGED }} == 'true'
         uses: softprops/action-gh-release@v1
         with:
-          name: Release ${{ steps.version.outputs.version }}
-          tag_name: v${{ steps.version.outputs.version }}
+          name: Release ${{ env.VERSION }}
+          tag_name: v${{ env.VERSION }}
           body: |
             This is a new release of the Chrome extension.
           draft: false
