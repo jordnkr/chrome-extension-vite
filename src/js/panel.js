@@ -51,3 +51,12 @@ chrome.runtime.onMessage.addListener((message) => {
     protanopiaCheckbox.addEventListener("change", toggleProtanopia);
   }
 });
+
+// Detach debugger when the devtools panel is closed
+window.addEventListener("beforeunload", async () => {
+  if (protanopiaCheckbox.checked) {
+    const tab = await chrome.tabs.get(chrome.devtools.inspectedWindow.tabId);
+    const debuggeeId = { tabId: tab.id };
+    chrome.debugger.detach(debuggeeId);
+  }
+});
