@@ -44,29 +44,10 @@ async function toggleProtanopia(event) {
   }
 }
 
-const port = chrome.runtime.connect({ name: "devtools" });
-
-port.onMessage.addListener((message) => {
+chrome.runtime.onMessage.addListener((message) => {
   if (message.action === "updateCheckbox") {
     protanopiaCheckbox.removeEventListener("change", toggleProtanopia);
     protanopiaCheckbox.checked = message.checked;
     protanopiaCheckbox.addEventListener("change", toggleProtanopia);
   }
 });
-
-
-
-// chrome.tabs.onActivated.addListener(function(closedTabId, removeInfo) {
-//       chrome.debugger.detach({tabId: tabId}, function() {
-//         console.log('Tab closed. Debugger detached.');
-//       });
-//   });
-
-// Listen for tab change and page reload events
-// chrome.tabs.onRemoved.addListener(function(closedTabId, removeInfo) {
-//   if (closedTabId === tabId) {
-//     chrome.debugger.detach({tabId: tabId}, function() {
-//       console.log('Tab closed. Debugger detached.');
-//     });
-//   }
-// });
