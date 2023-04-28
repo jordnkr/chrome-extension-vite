@@ -1,16 +1,25 @@
 import "../css/extension.css";
 import Color from "color";
 
-chrome.devtools.panels.create(
-  "Demo Panel",
-  null,
-  "index.html",
-  function (panel) {}
-);
+try {
+  chrome.devtools.panels.create(
+    "Demo Panel",
+    null,
+    "index.html",
+    function (panel) {}
+  );
+} catch (e) {
+  
+}
 
 const color = Color("#632169");
 const heading = document.getElementById("myHeading");
+const result = document.getElementById("result");
 heading.style.background = color.hex();
+
+document.getElementById("clickme").addEventListener("click", () => {
+  result.textContent = 1 + parseInt(result.textContent);
+})
 
 document.getElementById("protanopiaBtn").addEventListener("click", async () => {
   const tab = await chrome.tabs.get(chrome.devtools.inspectedWindow.tabId);
