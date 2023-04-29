@@ -1,4 +1,4 @@
-const { test: base, chromium, webkit } = require('@playwright/test')
+const { test: base, chromium, webkit, expect } = require('@playwright/test')
 const path = require('path')
 
 const extensionPath = path.join(__dirname, '../../dist') // make sure this is correct
@@ -21,6 +21,11 @@ const test = base.extend({
       '',
       launchOptions
     )
+
+    await context.addInitScript(() => {
+      window.__testmode = true;
+    });
+
     await use(context)
     await context.close()
   },
@@ -43,6 +48,8 @@ test.describe('Popup', () => {
   
   test('popup page', async ({ page, extensionId }) => {
     await page.goto(`chrome-extension://${extensionId}/index.html`);
-    await page.waitForTimeout(30000) // this is here so that it won't automatically close the browser window
+    await page.click("#clickme");
+    await expect(page.locator('#result')).toHaveText('1');
+    await page.waitForTimeout(10000) // this is here so that it won't automatically close the browser window
   });
 })

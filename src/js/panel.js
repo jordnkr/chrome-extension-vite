@@ -1,15 +1,13 @@
 import "../css/extension.css";
 import Color from "color";
 
-try {
+if (!__testmode) {
   chrome.devtools.panels.create(
     "Demo Panel",
     null,
     "index.html",
     function (panel) {}
   );
-} catch (e) {
-  
 }
 
 const color = Color("#632169");
