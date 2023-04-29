@@ -26,6 +26,9 @@ const test = base.extend({
       window.__testmode = true;
     });
 
+    await context.pages()[0].close();
+
+
     await use(context)
     await context.close()
   },
@@ -46,10 +49,14 @@ test.describe('Popup', () => {
     await page.waitForTimeout(30000) // this is here so that it won't automatically close the browser window
   });
   
-  test('popup page', async ({ page, extensionId }) => {
+  test('extension page', async ({ page, context, extensionId }) => {
     await page.goto(`chrome-extension://${extensionId}/index.html`);
-    await page.click("#clickme");
-    await expect(page.locator('#result')).toHaveText('1');
-    await page.waitForTimeout(10000) // this is here so that it won't automatically close the browser window
+
+    const testedPage = await context.newPage();
+    await testedPage.goto('http://jordnkr.github.io/cssnippets/');
+
+    await page.click("#protanopiaBtn");
+    await expect(page.locator('#result')).toHaveText('0');
+    await page.waitForTimeout(30000) // this is here so that it won't automatically close the browser window
   });
 })
