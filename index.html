@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  </head>
+  <head> </head>
   <body>
-    <h1 id="myHeading">Oh hey from the panel</h1>
-    <button id="protanopiaBtn">protanopia</button>
-    <button id="clickme">Click</button>
-    <p id="result">0</p>
+    <div>
+      <div id="tab1" class="tab active">View 1</div>
+      <div id="tab2" class="tab">View 2</div>
+    </div>
+    <div id="view1" class="tab-content" style="display: block">
+      <h1 id="myHeading">Oh hey from the panel</h1>
+      <button id="protanopiaBtn">protanopia</button>
+      <button id="clickme">Click</button>
+      <p id="result">0</p>
+    </div>
+    <div id="view2" class="tab-content">
+      <form id="form">
+        <label for="field1">Field 1:</label>
+        <input type="text" id="field1" name="field1" />
+        <label for="field2">Field 2:</label>
+        <input type="text" id="field2" name="field2" />
+        <button type="button" id="submitButton">Submit</button>
+      </form>
+      <div id="output"></div>
+    </div>
     <script type="module" src="/src/js/panel.js"></script>
   </body>
 </html>

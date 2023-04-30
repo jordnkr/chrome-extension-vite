@@ -72,3 +72,27 @@ document.getElementById("protanopiaBtn").addEventListener("click", async () => {
     );
   });
 });
+
+
+
+
+document.getElementById("tab1").addEventListener("click", () => switchTab(1));
+      document.getElementById("tab2").addEventListener("click", () => switchTab(2));
+      document.getElementById("submitButton").addEventListener("click", submitForm);
+  
+      function switchTab(tabId) {
+        let i;
+        for (i = 1; i <= 2; i++) {
+          document.getElementById(`tab${i}`).classList.remove("active");
+          document.getElementById(`view${i}`).style.display = "none";
+        }
+        document.getElementById(`tab${tabId}`).classList.add("active");
+        document.getElementById(`view${tabId}`).style.display = "block";
+      }
+  
+      function submitForm() {
+        const field1 = document.getElementById("field1").value;
+        const field2 = document.getElementById("field2").value;
+        const output = document.getElementById("output");
+        output.innerHTML = `Field 1: ${field1}<br>Field 2: ${field2}`;
+      }
