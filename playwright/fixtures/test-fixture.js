@@ -9,7 +9,7 @@ exports.test = base.extend({
     const launchOptions = {
       devtools: true,
       headless: false,
-      args: [`--disable-extensions-except=${extensionPath}`],
+      args: [`--disable-extensions-except=${extensionPath}`, '--single-process',],
       // viewport: {
       //   width: 1920,
       //   height: 1080,
