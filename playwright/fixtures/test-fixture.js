@@ -7,7 +7,7 @@ exports.test = base.extend({
   context: async ({ browserName }, use) => {
     const browserTypes = { chromium };
     const launchOptions = {
-      devtools: true,
+      //devtools: true,
       headless: false,
       args: [`--disable-extensions-except=${extensionPath}`, '--single-process',],
       // viewport: {
