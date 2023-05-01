@@ -78,7 +78,7 @@ document.getElementById("protanopiaBtn").addEventListener("click", async () => {
 
 document.getElementById("tab1").addEventListener("click", () => switchTab(1));
       document.getElementById("tab2").addEventListener("click", () => switchTab(2));
-      document.getElementById("submitButton").addEventListener("click", submitForm);
+      document.getElementById("submit-button").addEventListener("click", submitForm);
   
       function switchTab(tabId) {
         let i;
@@ -91,8 +91,8 @@ document.getElementById("tab1").addEventListener("click", () => switchTab(1));
       }
   
       function submitForm() {
-        const field1 = document.getElementById("field1").value;
-        const field2 = document.getElementById("field2").value;
+        const field1 = document.getElementById("name-field").value;
+        const field2 = document.getElementById("phone-field").value;
         const output = document.getElementById("output");
-        output.innerHTML = `Field 1: ${field1}<br>Field 2: ${field2}`;
+        output.innerHTML = `Name: ${field1}<br>Phone: ${field2}`;
       }
