@@ -19,7 +19,7 @@ test.beforeEach(async ({ page, context, extensionId }) => {
 test("extension view 1 page", async ({ page }) => {
   await viewOnePage.clickProtonopiaButton();
   await expect(await viewOnePage.getResultText()).toBe("0");
-  //await page.waitForTimeout(10000); // this is here so that it won't automatically close the browser window
+  await page.waitForTimeout(5000); // this is here so that it won't automatically close the browser window
 });
 
 test("extension view 2 page", async () => {
