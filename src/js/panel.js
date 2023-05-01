@@ -16,16 +16,23 @@ if (!window.__testmode) {
   // Get the current tab
   chrome.tabs.query({ active: true, currentWindow: true }, (currentTabs) => {
     const currentTab = currentTabs[0];
-    console.log("current:" + currentTab.id)
+    console.log("current:" + currentTab.id);
 
     // Query all the tabs
     chrome.tabs.query({}, (tabs) => {
-      console.log('all: ' + tabs)
+      for (let i = 0; i < tabs.length; i++) {
+        console.log(tabs[i]);
+      }
       // Extract the tab IDs into an array, excluding the current tab ID
       const tabIds = tabs
-        .filter((tab) => tab.id !== currentTab.id)
+        .filter(
+          (tab) =>
+            tab.url !== "about:blank" &&
+            !tab.url.includes("chrome-extension://")
+        )
         .map((tab) => tab.id);
 
+      console.log(`tabs: ${tabIds}`);
       tabId = tabIds[0];
       console.log("tested:" + tabId);
     });
@@ -50,11 +57,7 @@ document.getElementById("protanopiaBtn").addEventListener("click", async () => {
   const debuggeeId = { tabId };
   chrome.debugger.attach(debuggeeId, "1.3", () => {
     if (chrome.runtime.lastError) {
-      console.log(
-        "runtime.lastError",
-        tabId,
-        chrome.runtime.lastError.message
-      );
+      console.log("runtime.lastError", tabId, chrome.runtime.lastError.message);
       return;
     }
     chrome.debugger.sendCommand(
@@ -73,26 +76,23 @@ document.getElementById("protanopiaBtn").addEventListener("click", async () => {
   });
 });
 
-
-
-
 document.getElementById("tab1").addEventListener("click", () => switchTab(1));
-      document.getElementById("tab2").addEventListener("click", () => switchTab(2));
-      document.getElementById("submit-button").addEventListener("click", submitForm);
-  
-      function switchTab(tabId) {
-        let i;
-        for (i = 1; i <= 2; i++) {
-          document.getElementById(`tab${i}`).classList.remove("active");
-          document.getElementById(`view${i}`).style.display = "none";
-        }
-        document.getElementById(`tab${tabId}`).classList.add("active");
-        document.getElementById(`view${tabId}`).style.display = "block";
-      }
-  
-      function submitForm() {
-        const field1 = document.getElementById("name-field").value;
-        const field2 = document.getElementById("phone-field").value;
-        const output = document.getElementById("output");
-        output.innerHTML = `Name: ${field1}<br>Phone: ${field2}`;
-      }
+document.getElementById("tab2").addEventListener("click", () => switchTab(2));
+document.getElementById("submit-button").addEventListener("click", submitForm);
+
+function switchTab(tabId) {
+  let i;
+  for (i = 1; i <= 2; i++) {
+    document.getElementById(`tab${i}`).classList.remove("active");
+    document.getElementById(`view${i}`).style.display = "none";
+  }
+  document.getElementById(`tab${tabId}`).classList.add("active");
+  document.getElementById(`view${tabId}`).style.display = "block";
+}
+
+function submitForm() {
+  const field1 = document.getElementById("name-field").value;
+  const field2 = document.getElementById("phone-field").value;
+  const output = document.getElementById("output");
+  output.innerHTML = `Name: ${field1}<br>Phone: ${field2}`;
+}

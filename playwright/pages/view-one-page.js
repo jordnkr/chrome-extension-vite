@@ -9,10 +9,6 @@ class ViewOnePage {
     this.resultText = page.locator("#result");
   }
 
-  async goto(extensionId) {
-    await this.page.goto(`chrome-extension://${extensionId}/index.html`);
-  }
-
   async clickProtonopiaButton() {
     await this.protonopiaButton.click();
   }

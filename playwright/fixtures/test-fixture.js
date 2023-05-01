@@ -9,7 +9,9 @@ exports.test = base.extend({
     const launchOptions = {
       //devtools: true,
       headless: false,
-      args: [`--disable-extensions-except=${extensionPath}`, '--single-process',],
+      args: [
+        `--disable-extensions-except=${extensionPath}`,
+      ],
       // viewport: {
       //   width: 1920,
       //   height: 1080,
@@ -23,8 +25,6 @@ exports.test = base.extend({
     await context.addInitScript(() => {
       window.__testmode = true;
     });
-
-    await context.pages()[0].close();
 
     await use(context);
     await context.close();
