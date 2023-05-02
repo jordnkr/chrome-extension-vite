@@ -93,6 +93,7 @@ function switchTab(tabId) {
 function submitForm() {
   const field1 = document.getElementById("name-field").value;
   const field2 = document.getElementById("phone-field").value;
+  const field3 = document.getElementById("address-field").value;
   const output = document.getElementById("output");
-  output.innerHTML = `Name: ${field1}<br>Phone: ${field2}`;
+  output.innerHTML = `Name: ${field1}<br>Phone: ${field2}<br>Address: ${field3}`;
 }
