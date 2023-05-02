@@ -1,3 +1,18 @@
 h1 {
-  color: red;
+  color: #F3A191;
+}
+
+.tab {
+  cursor: pointer;
+  padding: 10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+.active {
+  background-color: white;
+  border-bottom: none;
+}
+.tab-content {
+  display: none;
 }
