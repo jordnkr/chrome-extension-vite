@@ -1,17 +1,18 @@
 import { test as base, expect, chromium } from "@playwright/test";
+import { extensionId } from "./extension-id-fixture";
 import path from "path";
+
+const newTest = base.extend({ extensionId });
 
 const extensionPath = path.join(__dirname, "../../dist"); // make sure this is correct
 
-exports.test = base.extend({
+exports.test = newTest.extend({
   context: async ({ browserName }, use) => {
     const browserTypes = { chromium };
     const launchOptions = {
       //devtools: true,
       headless: false,
-      args: [
-        `--disable-extensions-except=${extensionPath}`,
-      ],
+      args: [`--disable-extensions-except=${extensionPath}`],
       // viewport: {
       //   width: 1920,
       //   height: 1080,
@@ -29,13 +30,15 @@ exports.test = base.extend({
     await use(context);
     await context.close();
   },
-  extensionId: async ({ context }, use) => {
-    // for manifest v3:
-    let [background] = context.serviceWorkers();
-    if (!background) background = await context.waitForEvent("serviceworker");
+  page: async ({ context, extensionId }, use) => {
+    const extensionTarget = await context.newPage();
+    await extensionTarget.goto("http://jordnkr.github.io/cssnippets/");
 
-    const extensionId = background.url().split("/")[2];
-    await use(extensionId);
+    const page = await context.newPage();
+    await page.goto(`chrome-extension://${extensionId}/index.html`);
+
+    await use(page);
   },
 });
+
 exports.expect = expect;
