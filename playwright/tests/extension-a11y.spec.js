@@ -8,25 +8,19 @@ const test = baseTest.extend({ axe });
 // pages
 let viewOnePage;
 let viewTwoPage;
-let extensionTarget;
 
-test.beforeEach(async ({ page, context, extensionId }) => {
+test.beforeEach(async ({ page }) => {
   viewOnePage = new ViewOnePage(page);
   viewTwoPage = new ViewTwoPage(page);
-
-  extensionTarget = await context.newPage();
-  await extensionTarget.goto("http://jordnkr.github.io/cssnippets/");
-
-  await page.goto(`chrome-extension://${extensionId}/index.html`);
 });
 
-test("validate View 1 with axe-core", async ({ axe }) => {
+test("validate View 1 with axe-core", async ({ page, axe }) => {
   const axeResults = await await axe().analyze();
 
   expect(axeResults.violations).toEqual([]);
 });
 
-test("validate View 2 with axe-core", async ({ axe }) => {
+test("validate View 2 with axe-core", async ({ page, axe }) => {
   await viewOnePage.tabs.clickViewTwo();
 
   const axeResults = await axe().analyze();
