@@ -24,5 +24,5 @@ test("extension view 2 page", async ({ page }) => {
   await viewTwoPage.clickSubmit();
   await expect(viewTwoPage.output).toContainText("Name: test");
   await expect(viewTwoPage.output).toContainText("Phone: 123");
-  await page.waitForTimeout(5000); // this is here so that it won't automatically close the browser window
+  //await page.waitForTimeout(5000); // this is here so that it won't automatically close the browser window
 });
