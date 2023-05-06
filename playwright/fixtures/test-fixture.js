@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { test as base, expect, chromium } from "@playwright/test";
 import { extensionId } from "./extension-id-fixture";
 import path from "path";

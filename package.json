@@ -9,7 +9,6 @@
     "preview": "vite preview",
     "test": "node ./playwright/test-app/demo.js & playwright test && kill `pgrep -f 'node ./playwright/test-app/demo.js'`",
     "test:windows": "node ./playwright/test-app/demo.js & playwright test && taskkill /PID `netstat -ano | findstr :8080 | findstr LISTENING | awk '{print $5}'` /F"
-
   },
   "dependencies": {
     "color": "^4.2.3"
@@ -17,6 +16,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.7.0",
     "@playwright/test": "^1.33.0",
+    "eslint": "^8.40.0",
     "vite": "^4.2.1"
   }
 }
