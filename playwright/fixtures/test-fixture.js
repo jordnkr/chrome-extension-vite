@@ -33,6 +33,7 @@ exports.test = newTest.extend({
   page: async ({ context, extensionId }, use) => {
     const extensionTarget = await context.newPage();
     await extensionTarget.goto("http://jordnkr.github.io/cssnippets/");
+    //await extensionTarget.goto("http://localhost:8080/");
 
     const page = await context.newPage();
     await page.goto(`chrome-extension://${extensionId}/index.html`);

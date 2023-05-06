@@ -1,6 +1,6 @@
 // axe-test.js
 import { test as base } from "@playwright/test";
-const AxeBuilder = require('@axe-core/playwright').default;
+import AxeBuilder from '@axe-core/playwright';
 
 // Default configuration of AxeBuilder
 export const axeBuilder = async ({ page }, use) => {
