@@ -8,7 +8,7 @@ if (!window.__testmode) {
     "Demo Panel",
     null,
     "index.html",
-    function (panel) {}
+    function () {}
   );
 
   loadTab();

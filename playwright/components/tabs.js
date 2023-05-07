@@ -1,8 +1,8 @@
 class Tabs {
   constructor(page) {
     this.page = page;
-    this.viewOneButton = page.locator('#tab1');
-    this.viewTwoButton = page.locator('#tab2');
+    this.viewOneButton = page.locator("#tab1");
+    this.viewTwoButton = page.locator("#tab2");
   }
 
   async clickViewOne() {
