@@ -6,6 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "build:watch": "vite build --watch",
+    "prettier": "prettier --write .",
+    "prettier:ci": "prettier --check .",
     "preview": "vite preview",
     "test": "node ./playwright/test-app/demo.js & playwright test && kill `pgrep -f 'node ./playwright/test-app/demo.js'`",
     "test:windows": "node ./playwright/test-app/demo.js & playwright test && taskkill /PID `netstat -ano | findstr :8080 | findstr LISTENING | awk '{print $5}'` /F"
@@ -17,6 +19,8 @@
     "@axe-core/playwright": "^4.7.0",
     "@playwright/test": "^1.33.0",
     "eslint": "^8.40.0",
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "2.8.8",
     "vite": "^4.2.1"
   }
 }
