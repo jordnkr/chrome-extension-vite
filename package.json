@@ -6,8 +6,9 @@
     "dev": "vite",
     "build": "vite build",
     "build:watch": "vite build --watch",
-    "prettier": "prettier --write .",
-    "prettier:ci": "prettier --check .",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint": "eslint .",
     "preview": "vite preview",
     "test": "node ./playwright/test-app/demo.js & playwright test && kill `pgrep -f 'node ./playwright/test-app/demo.js'`",
     "test:windows": "node ./playwright/test-app/demo.js & playwright test && taskkill /PID `netstat -ano | findstr :8080 | findstr LISTENING | awk '{print $5}'` /F"
