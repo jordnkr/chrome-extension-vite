@@ -7,7 +7,7 @@ class ViewTwoPage {
     this.nameField = page.locator("#name-field");
     this.phoneField = page.locator("#phone-field");
     this.submitButton = page.locator("#submit-button");
-    this.output = page.locator('#output');
+    this.output = page.locator("#output");
   }
 
   async enterName(name) {
