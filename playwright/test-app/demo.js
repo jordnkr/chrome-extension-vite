@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 var http = require('http');
 
 const server = http.createServer(function (req, res) {
